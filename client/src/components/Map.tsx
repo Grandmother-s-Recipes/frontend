@@ -3,15 +3,15 @@ import "../styles/map.css";
 
 const properties = {
   "xmlns":"http://www.w3.org/2000/svg",
-  "xmlns:xlink":"http://www.w3.org/1999/xlink",
+  "xmlnsXlink":"http://www.w3.org/1999/xlink",
   "xmlns:a":"http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/",
   "x":"0px",
   "y":"0px",
   "width":"560.512px",
   "height":"663.114px",
   "viewBox":"0 0 560.512 663.114",
-  "enable-background":"new 0 0 560.512 663.114",
-  "xml:space":"preserve",
+  "enableBackground":"new 0 0 560.512 663.114",
+  "xmlSpace":"preserve",
 }
 
 const SVGComponent = () => (
