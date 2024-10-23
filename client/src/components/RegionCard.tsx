@@ -1,4 +1,4 @@
-import "../styles/regionCard.css";
+import "../styles/recipes.css";
 
 type regionCardProps = {
     activeRegion: string | null;
@@ -7,7 +7,15 @@ type regionCardProps = {
 const RegionCard: React.FC<regionCardProps> = ({ activeRegion }) => {
 
     return (
-        <h1>{activeRegion}</h1>
+        <>
+            <h2 className="title">{activeRegion}</h2>
+            <div className="recipeContainer">
+                <br/>
+                <div className="recipeTitle">filler recipe title</div>
+                <br/>
+                <div className="recipeText">filler recipe text</div>
+            </div>
+        </>
     )
 
 }

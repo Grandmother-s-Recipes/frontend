@@ -12,6 +12,7 @@ const properties = {
   "viewBox":"0 0 560.512 663.114",
   "enableBackground":"new 0 0 560.512 663.114",
   "xmlSpace":"preserve",
+  "id":"map"
 }
 
 const SVGComponent = () => (
