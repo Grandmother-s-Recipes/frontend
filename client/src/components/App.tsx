@@ -3,6 +3,7 @@ import Map from './Map.tsx'
 import Header from './Header.tsx'
 import RegionCard from './RegionCard.tsx'
 import Favorites from './Favorites.tsx'
+import LoginForm from './LoginForm.tsx'
 import "../styles/app.css";
 
 export default function App() {
@@ -33,14 +34,21 @@ export default function App() {
 		setView("map");
 	}
 
+	function loginButtonFunction () {
+		if (loggedIn === "no") {
+			setView("loginForm");
+		}
+	}
+
 	function loginFunction () {
 		if (loggedIn === "no") {
-			setLoggedIn("yes");		
+			setLoggedIn("yes");
+			setView("map");		
 		}
 	}
 
 	function logoutFunction () {
-		if (view === "favorites") {
+		if (view !== "map") {
 			setView("map");
 		}
 		if (loggedIn === "yes") {
@@ -54,7 +62,13 @@ export default function App() {
 
 	function determineView () {
 		if (view === "map") {
-			return (<Map/>)
+			return (
+				<>
+					<div>Select a region of Italy to get started!</div>
+					<br/>
+					<Map/>
+				</>
+			)
 		}
 		if (view === "region") {
 			return (<RegionCard activeRegion = { activeRegion }/>)
@@ -62,11 +76,15 @@ export default function App() {
 		if (view === "favorites") {
 			return (<Favorites/>)
 		}
+		if (view === "loginForm") {
+			return (<LoginForm loginFunction = { loginFunction }/>)
+		}
 	}
 
 	return (
 		<>
-		<Header loggedIn = { loggedIn } loginFunction = { loginFunction } logoutFunction = { logoutFunction } returnHome = { returnHome } viewFavorites = { viewFavorites }/>
+		<Header loggedIn = { loggedIn } loginButtonFunction = { loginButtonFunction } logoutFunction = { logoutFunction } returnHome = { returnHome } viewFavorites = { viewFavorites }/>
+		<br/>
 		{determineView()}
 		</>
 	)

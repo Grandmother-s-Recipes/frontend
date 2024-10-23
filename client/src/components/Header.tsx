@@ -2,13 +2,13 @@ import "../styles/header.css";
 
 type headerProps = {
     returnHome: Function,
-    loginFunction: Function,
+    loginButtonFunction: Function,
     logoutFunction: Function,
     viewFavorites: Function,
     loggedIn: string,
 }
 
-const Header: React.FC<headerProps> = ({ loggedIn, loginFunction, logoutFunction, returnHome, viewFavorites }) => {
+const Header: React.FC<headerProps> = ({ loggedIn, loginButtonFunction, logoutFunction, returnHome, viewFavorites }) => {
 
     return (
         <>
@@ -22,7 +22,7 @@ const Header: React.FC<headerProps> = ({ loggedIn, loginFunction, logoutFunction
                     </>
                 ) : (
                     <>
-                        <li onClick={() => loginFunction()}>Login</li>
+                        <li onClick={() => loginButtonFunction()}>Login</li>
                         <li onClick={() => returnHome()}>Return to map</li>
                     </>
                 )}
