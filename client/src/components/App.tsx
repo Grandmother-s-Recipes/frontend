@@ -48,7 +48,8 @@ export default function App() {
 	function loginFunction () {
 		if (loggedIn === "no") {
 			setLoggedIn("yes");
-			setView("map");		
+			setView("map");
+			alert(`You are successfully logged in!`)	
 		}
 	}
 
@@ -59,6 +60,7 @@ export default function App() {
 		}
 		if (loggedIn === "yes") {
 			setLoggedIn("no");
+			alert("You have logged out.")
 		}
 	}
 

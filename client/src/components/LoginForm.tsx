@@ -8,9 +8,9 @@ const Header: React.FC<loginProps> = ({ loginFunction }) => {
 
     return (
         <>
-            <input placeholder="Username"></input>
+            <input id="usernameEntry" placeholder="Username"></input>
             <br/>
-            <input placeholder="Password"></input>
+            <input id="passwordEntry" placeholder="Password"></input>
             <br/>
             <button onClick={() => loginFunction()}>Login</button>
         </>
