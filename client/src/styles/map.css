@@ -1,9 +1,6 @@
 path:hover{
-    fill: #fff;
+    fill: #3E5C73;
   }
-  path.selected{
-    fill: #fff!important;
-  }
-  .regione{
+  .region{
     transition: all 200ms ease-in-out;
   }
