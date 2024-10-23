@@ -14,14 +14,17 @@ const Header: React.FC<headerProps> = ({ loggedIn, loginFunction, logoutFunction
         <>
             <h1>Grandmother's Recipes</h1>
             <ul>
-                <li id="homeButton" className="headerButton" onClick={() => returnHome()}>Return to map</li>
                 {loggedIn === "yes" ? (
                     <>
-                        <li onClick={() => viewFavorites()}>Favorite recipes</li>
                         <li onClick={() => logoutFunction()}>Logout</li>
+                        <li onClick={() => returnHome()}>Return to map</li>
+                        <li onClick={() => viewFavorites()}>Favorite recipes</li>
                     </>
                 ) : (
-                    <li onClick={() => loginFunction()}>Login</li>  
+                    <>
+                        <li onClick={() => loginFunction()}>Login</li>
+                        <li onClick={() => returnHome()}>Return to map</li>
+                    </>
                 )}
             </ul>
         </>

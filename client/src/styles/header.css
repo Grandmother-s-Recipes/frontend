@@ -25,6 +25,11 @@ li {
     background: none;
     border: none;
     color: goldenrod;
+    width: 120px;
+}
+
+li:first-child {
+    margin-right: 15px;
 }
 
 li:hover {
