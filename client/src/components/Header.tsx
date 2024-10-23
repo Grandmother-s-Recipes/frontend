@@ -12,7 +12,7 @@ const Header: React.FC<headerProps> = ({ loggedIn, loginButtonFunction, logoutFu
 
     return (
         <>
-            <h1>Grandmother's Recipes</h1>
+            <h1><span onClick={() => returnHome()}>Grandmother's Recipes</span></h1>
             <ul>
                 {loggedIn === "yes" ? (
                     <>
