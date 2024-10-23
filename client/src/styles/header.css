@@ -8,6 +8,16 @@ h1 {
     margin-bottom: 15px;
 }
 
+#grandmother {
+    padding: 8px;
+}
+
+#grandmother:hover {
+    background-color: goldenrod;
+    color: #3E5C73;
+    cursor: pointer;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -35,4 +45,5 @@ li:first-child {
 li:hover {
     background-color: goldenrod;
     color: #3E5C73;
+    cursor: pointer;
 }
