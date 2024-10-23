@@ -1,4 +1,3 @@
-//import * as React from "react";
 import "../styles/map.css";
 import { Regions } from "../types/regions";
 
