@@ -27,7 +27,6 @@ const Favorites: React.FC = () => {
             }
             const favs: Favorite[] = await response.json();
             setFavorites(favs);
-            
         } catch (error) {
             setHasError(true);
         }
@@ -36,7 +35,7 @@ const Favorites: React.FC = () => {
     const handleRemoveFromFavorites = async(recipe_id: string): Promise<void> => {
         try {
             // Remove from the database
-            const response = await fetch(`favorites/${recipe_id}`, {
+            const response = await fetch(`/favorites/${recipe_id}`, {
                 method: "DELETE",
                 credentials: 'include',
                 headers: {
