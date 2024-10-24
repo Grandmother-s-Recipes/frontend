@@ -1,0 +1,7 @@
+path:hover {
+    fill: #3E5C73;
+    cursor: pointer;
+  }
+  .region {
+    transition: all 200ms ease-in-out;
+  }
