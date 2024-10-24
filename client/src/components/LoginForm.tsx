@@ -8,6 +8,7 @@ type loginProps = {
 const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
 
     const [loginError, setLoginError] = useState<boolean>(false);
+    const [loginFailed, setLoginFailed] = useState<boolean>(false);
 
     async function loginFunction() {
         const username = (document.getElementById("usernameEntry") as HTMLInputElement).value;
@@ -28,6 +29,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
                 handleLoggedInState(true);
             } else {
                 console.error('Login failed!');
+                setLoginFailed(true);
             }
         } catch (error) {
             setLoginError(true);
@@ -52,29 +54,51 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
                 localStorage.setItem('authToken', data.token);
                 handleLoggedInState(true);
             } else {
+                setLoginFailed(true);
                 console.error('Registration failed');
             }
         } catch (error) {
             setLoginError(true);
         }
-        
+    }
+
+    function returnToLogin() {
+        setLoginError(false);
+        setLoginFailed(false);
     }
 
     return (
         <>
             {
                 loginError ? (
-                    <h3>Error</h3>
-                    <p>It seems there was an error with login or registration.</p>
-                    <p>Sorry about that</p>
+                    <>
+                        <h3>Error</h3>
+                        <p>It seems there was an error with login or registration.</p>
+                        <p>Sorry about that</p>
+                        <button onClick={returnToLogin}>Return to Login</button>
+                    </>
                 ) : (
-                    <input id="usernameEntry" placeholder="Username"></input>
-                    <br/>
-                    <input id="passwordEntry" placeholder="Password"></input>
-                    <br/>
-                    <button onClick={loginFunction}>Login</button>
-                    <br/>
-                    <button onClick={registerFunction}>Register</button>
+                    <>
+                        <input id="usernameEntry" placeholder="Username"></input>
+                        <br/>
+                        <input id="passwordEntry" placeholder="Password"></input>
+                        <br/>
+                        <button onClick={loginFunction}>Login</button>
+                        <br/>
+                        <button onClick={registerFunction}>Register</button>
+                    </>
+                )
+            }
+
+            {
+                loginFailed ? (
+                    <>
+                        <h3>Login / Registration could not be completed</h3>
+                        <p>Sorry about that. Please try again</p>
+                    </>
+                ) : (
+                    <>
+                    </>
                 )
             }
             
