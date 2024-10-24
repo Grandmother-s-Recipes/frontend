@@ -44,13 +44,18 @@ export default function App() {
 		}
 	}
 
-	//this function is called on the login form. Authentication to come later
+	//this function is called on the login form. Authentication to come
 	function loginFunction () {
 		if (loggedIn === "no") {
 			setLoggedIn("yes");
 			setView("map");
 			alert(`You are successfully logged in!`);
 		}
+	}
+
+	//another function that is called on the login form. Will register a new user and save them to our user table. Authentication to come
+	function registerFunction () {
+		loginFunction();
 	}
 
 	//logs the user out and resets the view to the default Map view
@@ -87,7 +92,7 @@ export default function App() {
 			return (<Favorites/>)
 		}
 		if (view === "loginForm") {
-			return (<LoginForm loginFunction = { loginFunction }/>)
+			return (<LoginForm loginFunction = { loginFunction } registerFunction = { registerFunction }/>)
 		}
 	}
 
