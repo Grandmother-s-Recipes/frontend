@@ -89,7 +89,7 @@ export default function App() {
 			return (<RegionCard activeRegion = { activeRegion }/>)
 		}
 		if (view === "favorites") {
-			return (<Favorites/>)
+			return (<Favorites />)
 		}
 		if (view === "loginForm") {
 			return (<LoginForm loginFunction = { loginFunction } registerFunction = { registerFunction }/>)
