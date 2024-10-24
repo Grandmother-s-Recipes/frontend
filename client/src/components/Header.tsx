@@ -5,16 +5,16 @@ type headerProps = {
     loginButtonFunction: Function,
     logoutFunction: Function,
     viewFavorites: Function,
-    loggedIn: string,
+    isLoggedIn: boolean,
 }
 
-const Header: React.FC<headerProps> = ({ loggedIn, loginButtonFunction, logoutFunction, returnHome, viewFavorites }) => {
+const Header: React.FC<headerProps> = ({ isLoggedIn, loginButtonFunction, logoutFunction, returnHome, viewFavorites }) => {
 
     return (
         <>
             <h1><span id="grandmother" onClick={() => returnHome()}>Grandmother's Recipes</span></h1>
             <ul>
-                {loggedIn === "yes" ? (
+                {isLoggedIn === true ? (
                     <>
                         <li onClick={() => logoutFunction()}>Logout</li>
                         <li onClick={() => returnHome()}>Return to map</li>

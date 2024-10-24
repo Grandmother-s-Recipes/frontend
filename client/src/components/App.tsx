@@ -8,19 +8,32 @@ import "../styles/app.css";
 
 export default function App() {
 
-	const [view, setView] = useState("map")
-	const [activeRegion, setActiveRegion] = useState<string | null>(null)
-	const [loggedIn, setLoggedIn] = useState("no");
+	const [view, setView] = useState("map");
+	const [activeRegion, setActiveRegion] = useState<string | null>(null);
+	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
 	useEffect(() => {
 		pathFetcher();
-	})
+	});
+
+	useEffect(() => {
+		const authToken = localStorage.getItem('authToken');
+		if (authToken) {
+			setIsLoggedIn(true);
+			setView("map");
+		}
+	}, []); // [] makes sure this only runs once.
+
+	function handleLoggedInState(loggedIn: boolean) {
+		setIsLoggedIn(loggedIn);
+		setView("map");
+	}
 
 	//adds click events to each region on the map. Calls the below function viewRegion to change the view to the selected region
 	function pathFetcher () {
 		const paths = document.querySelectorAll('path');
 		for (let i = 0; i < paths.length; i++) {
-			let region = paths[i].getAttribute('region-name')
+			let region = paths[i].getAttribute('region-name');
 			paths[i].addEventListener('click', () => {viewRegion(region)});
 		}
 	}
@@ -39,23 +52,9 @@ export default function App() {
 
 	//header bar login button functionality. This does not log in, it switches the view to the login form. Users will finish logging in from the login form
 	function loginButtonFunction () {
-		if (loggedIn === "no") {
+		if (!isLoggedIn) {
 			setView("loginForm");
 		}
-	}
-
-	//this function is called on the login form. Authentication to come
-	function loginFunction () {
-		if (loggedIn === "no") {
-			setLoggedIn("yes");
-			setView("map");
-			alert(`You are successfully logged in!`);
-		}
-	}
-
-	//another function that is called on the login form. Will register a new user and save them to our user table. Authentication to come
-	function registerFunction () {
-		loginFunction();
 	}
 
 	//logs the user out and resets the view to the default Map view
@@ -63,8 +62,8 @@ export default function App() {
 		if (view !== "map") {
 			setView("map");
 		}
-		if (loggedIn === "yes") {
-			setLoggedIn("no");
+		if (isLoggedIn) {
+			setIsLoggedIn(false);
 			alert("You have logged out.");
 		}
 	}
@@ -92,13 +91,13 @@ export default function App() {
 			return (<Favorites/>)
 		}
 		if (view === "loginForm") {
-			return (<LoginForm loginFunction = { loginFunction } registerFunction = { registerFunction }/>)
+			return (<LoginForm handleLoggedInState = { handleLoggedInState }/>)
 		}
 	}
 
 	return (
 		<>
-			<Header loggedIn = { loggedIn } loginButtonFunction = { loginButtonFunction } logoutFunction = { logoutFunction } returnHome = { returnHome } viewFavorites = { viewFavorites }/>
+			<Header isLoggedIn = { isLoggedIn } loginButtonFunction = { loginButtonFunction } logoutFunction = { logoutFunction } returnHome = { returnHome } viewFavorites = { viewFavorites }/>
 			<br/>
 			{determineView()}
 		</>
