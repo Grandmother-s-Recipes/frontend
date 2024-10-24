@@ -24,6 +24,7 @@ export default function App() {
 		}
 	}, []); // [] makes sure this only runs once.
 
+	// Sets the state for logging in and sets the view to map on logging in and logging out.
 	function handleLoggedInState(loggedIn: boolean) {
 		setIsLoggedIn(loggedIn);
 		setView("map");
@@ -57,17 +58,6 @@ export default function App() {
 		}
 	}
 
-	//logs the user out and resets the view to the default Map view
-	function logoutFunction () {
-		if (view !== "map") {
-			setView("map");
-		}
-		if (isLoggedIn) {
-			setIsLoggedIn(false);
-			alert("You have logged out.");
-		}
-	}
-
 	//switches the view to the Favorited Recipes view
 	function viewFavorites () {
 		setView("favorites");
@@ -97,7 +87,7 @@ export default function App() {
 
 	return (
 		<>
-			<Header isLoggedIn = { isLoggedIn } loginButtonFunction = { loginButtonFunction } logoutFunction = { logoutFunction } returnHome = { returnHome } viewFavorites = { viewFavorites }/>
+			<Header isLoggedIn = { isLoggedIn } loginButtonFunction = { loginButtonFunction } handleLoggedInState = { handleLoggedInState } returnHome = { returnHome } viewFavorites = { viewFavorites }/>
 			<br/>
 			{determineView()}
 		</>
