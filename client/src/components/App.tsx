@@ -5,6 +5,7 @@ import RegionCard from './RegionCard.tsx'
 import Favorites from './Favorites.tsx'
 import LoginForm from './LoginForm.tsx'
 import "../styles/app.css";
+import { PacmanLoader } from 'react-spinners'
 
 export default function App() {
 
@@ -14,6 +15,7 @@ export default function App() {
 	const [activeRegion, setActiveRegion] = useState<string | null>(null)
 	const [loggedIn, setLoggedIn] = useState("no");
 	const [recipes, setRecipes] = useState([]); //I added this state for memorizing the recipes called from the API
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		pathFetcher();
@@ -26,6 +28,7 @@ export default function App() {
 	}, [activeRegion])  //the effect will active only when activeRegion change
 
 	const fetchRecipesForRegion = async (region: string) => {
+		setLoading(true);
 		try {
 			const response = await fetch(`${URL}/recipes?region=${region}`);
 			const data = await response.json();
@@ -33,6 +36,7 @@ export default function App() {
 		} catch (error) {
 			console.error(error);
 		}
+		setLoading(false);
 	}
 
 	//adds click events to each region on the map. Calls the below function viewRegion to change the view to the selected region
@@ -96,6 +100,19 @@ export default function App() {
 
 	//this function is called in the return of App.tsx. The result of this function determines what components are rendered
 	function determineView () {
+		if(loading) {
+			return <div><PacmanLoader
+			color="#3e5c7e"
+			cssOverride={{
+			  'marginLeft': 'auto',
+			  'marginRight': 'auto'
+			}}
+			margin={2}
+			size={25}
+			speedMultiplier={1}
+		  /></div>;
+		}
+
 		if (view === "map") {
 			return (
 				<>
