@@ -40,7 +40,7 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes }) => {
                         </div>
                     ))
                 ) : (
-                    <p>No recipes found for this region. Or maybe ther is no grandmother here</p>
+                    <p>No recipes found for this region. Or maybe there is no grandmother here</p>
                 )}
             </div>
         </>
