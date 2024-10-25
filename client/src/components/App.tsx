@@ -4,6 +4,7 @@ import Header from './Header.tsx';
 import RegionCard from './RegionCard.tsx';
 import Favorites from './Favorites.tsx';
 import LoginForm from './LoginForm.tsx';
+import RecipeModal from './RecipeModal.tsx';
 import "../styles/app.css";
 import { PacmanLoader } from 'react-spinners';
 
@@ -139,13 +140,7 @@ export default function App() {
           />
           {showModal && selectedRecipe && (
             <div className="modal">
-              <div className="modal-content">
-                <h2>{selectedRecipe.title}</h2>
-                <p><strong>Ingredients:</strong> {selectedRecipe.ingredients}</p>
-                <p><strong>Servings:</strong> {selectedRecipe.servings}</p>
-                <p><strong>Instructions:</strong> {selectedRecipe.instructions}</p>
-                <button onClick={closeModal}>Close</button>
-              </div>
+              <RecipeModal selectedRecipe={selectedRecipe} closeModal={closeModal} />
             </div>
           )}
         </>
