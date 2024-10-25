@@ -17,6 +17,7 @@ interface Recipe {
 export default function App() {
   const URL = import.meta.env.VITE_API_URL;
 
+
   const [view, setView] = useState<string>("map");
   const [activeRegion, setActiveRegion] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
