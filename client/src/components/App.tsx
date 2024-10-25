@@ -102,6 +102,10 @@ export default function App() {
     setView("favorites");
   }
 
+  function addToFavorite() {
+
+  }
+
   //this function is called in the return of App.tsx. The result of this function determines what components are rendered
   function determineView() {
     if (loading) {
@@ -140,7 +144,7 @@ export default function App() {
           />
           {showModal && selectedRecipe && (
             <div className="modal">
-              <RecipeModal selectedRecipe={selectedRecipe} closeModal={closeModal} />
+              <RecipeModal selectedRecipe={selectedRecipe} closeModal={closeModal} addToFavorite={addToFavorite} />
             </div>
           )}
         </>
