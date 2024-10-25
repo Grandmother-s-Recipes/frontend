@@ -9,17 +9,24 @@ import { PacmanLoader } from 'react-spinners'
 
 export default function App() {
 
+
 	const URL = import.meta.env.VITE_API_URL;
 
 	const [view, setView] = useState("map")
 	const [activeRegion, setActiveRegion] = useState<string | null>(null)
-	const [loggedIn, setLoggedIn] = useState("no");
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 	const [recipes, setRecipes] = useState([]); //I added this state for memorizing the recipes called from the API
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		pathFetcher();
 	})
+      
+  // Sets the state for logging in and sets the view to map on logging in and logging out.
+	function handleLoggedInState(loggedIn: boolean) {
+		setIsLoggedIn(loggedIn);
+		setView("map");
+    
     //I added this useEffect and i also added activeRegion in line 24 
 	useEffect(() => {
 		if(activeRegion) {
@@ -37,13 +44,14 @@ export default function App() {
 			console.error(error);
 		}
 		setLoading(false);
+
 	}
 
 	//adds click events to each region on the map. Calls the below function viewRegion to change the view to the selected region
 	function pathFetcher () {
 		const paths = document.querySelectorAll('path');
 		for (let i = 0; i < paths.length; i++) {
-			let region = paths[i].getAttribute('region-name')
+			let region = paths[i].getAttribute('region-name');
 			paths[i].addEventListener('click', () => {viewRegion(region)});
 		}
 	}
@@ -63,33 +71,8 @@ export default function App() {
 
 	//header bar login button functionality. This does not log in, it switches the view to the login form. Users will finish logging in from the login form
 	function loginButtonFunction () {
-		if (loggedIn === "no") {
+		if (!isLoggedIn) {
 			setView("loginForm");
-		}
-	}
-
-	//this function is called on the login form. Authentication to come
-	function loginFunction () {
-		if (loggedIn === "no") {
-			setLoggedIn("yes");
-			setView("map");
-			alert(`You are successfully logged in!`);
-		}
-	}
-
-	//another function that is called on the login form. Will register a new user and save them to our user table. Authentication to come
-	function registerFunction () {
-		loginFunction();
-	}
-
-	//logs the user out and resets the view to the default Map view
-	function logoutFunction () {
-		if (view !== "map") {
-			setView("map");
-		}
-		if (loggedIn === "yes") {
-			setLoggedIn("no");
-			alert("You have logged out.");
 		}
 	}
 
@@ -129,13 +112,13 @@ export default function App() {
 			return (<Favorites/>)
 		}
 		if (view === "loginForm") {
-			return (<LoginForm loginFunction = { loginFunction } registerFunction = { registerFunction }/>)
+			return (<LoginForm handleLoggedInState = { handleLoggedInState }/>)
 		}
 	}
 
 	return (
 		<>
-			<Header loggedIn = { loggedIn } loginButtonFunction = { loginButtonFunction } logoutFunction = { logoutFunction } returnHome = { returnHome } viewFavorites = { viewFavorites }/>
+			<Header isLoggedIn = { isLoggedIn } loginButtonFunction = { loginButtonFunction } handleLoggedInState = { handleLoggedInState } returnHome = { returnHome } viewFavorites = { viewFavorites }/>
 			<br/>
 			{determineView()}
 		</>
