@@ -14,7 +14,7 @@ export default function App() {
 
 	const [view, setView] = useState("map")
 	const [activeRegion, setActiveRegion] = useState<string | null>(null)
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 	const [recipes, setRecipes] = useState([]); //I added this state for memorizing the recipes called from the API
 	const [loading, setLoading] = useState(false);
 

@@ -1,4 +1,5 @@
 import "../styles/recipes.css";
+import grandmaImage from '../assets/grandma.jpg';
 
 type Recipe = {
     title: string;
@@ -17,26 +18,23 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes }) => {
     /*const formatIngredients = (ingredients: string) => {
         return ingredients.split('|').map((ingredient, index) => <li key={index}>{ingredient}</li>);
     };*/
+
+
     return (
         <>
             <h2 className="title">{activeRegion}</h2>
             <div className="recipeContainer">
                 {recipes.length > 0 ? (
                     recipes.map((recipe, index) => (
-                        <div key={index}>
+                        <div className="recipeCard" key={index}>
+                            <div className="recipePicture">
+                                <img src={grandmaImage} alt="Your grandma."/>
+                            </div>
                             <div className="recipeTitle">{recipe.title}</div>
-                            <br />
-                            <div className="recipeText">
-                                <strong>Ingredients:</strong> {recipe.ingredients}
+                            <div className="viewDetails">
+                                <button className="viewDetailsButton"><strong>Grandmama says</strong></button>
                             </div>
                             <br />
-                            <div className="recipeText">
-                                <strong>Servings:</strong> {recipe.servings}
-                            </div>
-                            <br />
-                            <div className="recipeText">
-                                <strong>Instructions:</strong> {recipe.instructions}
-                            </div>
                         </div>
                     ))
                 ) : (
