@@ -9,13 +9,14 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
 
     const [loginError, setLoginError] = useState<boolean>(false);
     const [loginFailed, setLoginFailed] = useState<boolean>(false);
+    const API_URL: string = import.meta.env.VITE_API_URL;
 
     async function loginFunction() {
         const username = (document.getElementById("usernameEntry") as HTMLInputElement).value;
         const password = (document.getElementById("passwordEntry") as HTMLInputElement).value;
 
         try {
-            const response = await fetch('/login', {
+            const response = await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -24,8 +25,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
             });
 
             if(response.ok) {
-                const data = await response.json();
-                localStorage.setItem('authToken', data.token); // Set the session locally here.
+                //const data = await response.json();
                 handleLoggedInState(true);
             } else {
                 console.error('Login failed!');
@@ -41,7 +41,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
         const password = (document.getElementById("passwordEntry") as HTMLInputElement).value;
         
         try {
-            const response = await fetch('/register', {
+            const response = await fetch(`${API_URL}/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -49,9 +49,8 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
                 body: JSON.stringify({ username, password })
             });
 
-            if(response.ok) {
-                const data = await response.json();
-                localStorage.setItem('authToken', data.token);
+            if (response.ok) {
+                //const data = await response.json();
                 handleLoggedInState(true);
             } else {
                 setLoginFailed(true);

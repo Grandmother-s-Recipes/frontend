@@ -10,10 +10,12 @@ type headerProps = {
 
 const Header: React.FC<headerProps> = ({ isLoggedIn, loginButtonFunction, handleLoggedInState, returnHome, viewFavorites }) => {
 
+    const API_URL: string = import.meta.env.VITE_API_URL;
+
     async function logoutFunction() {
         try {
             // for handling the express token on the server side
-            const response = await fetch('/logout', {
+            const response = await fetch(`${API_URL}/logout`, {
                 method: 'POST',
                 credentials: 'include'
             });
@@ -23,6 +25,7 @@ const Header: React.FC<headerProps> = ({ isLoggedIn, loginButtonFunction, handle
             }
 
             // reset the token
+            console.log(localStorage.getItem('authToken'));
             localStorage.removeItem('authToken');
             handleLoggedInState(false);
 
