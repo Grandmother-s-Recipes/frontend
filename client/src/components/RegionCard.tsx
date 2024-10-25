@@ -1,19 +1,20 @@
 import "../styles/recipes.css";
 import grandmaImage from '../assets/grandma.jpg';
 
-type Recipe = {
-    title: string;
-    ingredients: string;
-    servings: string;
-    instructions: string;
+interface Recipe {
+  title: string;
+  ingredients: string;
+  servings: string;
+  instructions: string;
 }
 
 type RegionCardProps = {
-    activeRegion: string | null;
-    recipes: Recipe[]; 
+  activeRegion: string | null;
+  recipes: Recipe[];
+  onRecipeClick: (recipe: Recipe) => void;
 };
 
-const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes }) => {
+const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes, onRecipeClick }) => {
     // Helper function to format ingredients from pipe-separated to list
     /*const formatIngredients = (ingredients: string) => {
         return ingredients.split('|').map((ingredient, index) => <li key={index}>{ingredient}</li>);
@@ -32,7 +33,7 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes }) => {
                             </div>
                             <div className="recipeTitle">{recipe.title}</div>
                             <div className="viewDetails">
-                                <button className="viewDetailsButton"><strong>Grandmama says</strong></button>
+                                <button className="viewDetailsButton" onClick={() => onRecipeClick(recipe)}><strong>Grandmama says</strong></button>
                             </div>
                             <br />
                         </div>
@@ -41,8 +42,9 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes }) => {
                     <p>No recipes found for this region. Or maybe there is no grandmother here</p>
                 )}
             </div>
-        </>
-    );
-};
+       </>
+      );
+    };
 
 export default RegionCard;
+
