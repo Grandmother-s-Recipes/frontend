@@ -53,6 +53,7 @@ export default function App() {
 	//returns to the default Map view
 	function returnHome () {
 		setActiveRegion(null);
+		setRecipes([]);
 		setView("map");
 	}
 
