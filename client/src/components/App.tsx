@@ -8,6 +8,8 @@ import "../styles/app.css";
 
 export default function App() {
 
+	const URL = import.meta.env.VITE_API_URL;
+
 	const [view, setView] = useState("map")
 	const [activeRegion, setActiveRegion] = useState<string | null>(null)
 	const [loggedIn, setLoggedIn] = useState("no");
@@ -25,7 +27,7 @@ export default function App() {
 
 	const fetchRecipesForRegion = async (region: string) => {
 		try {
-			const response = await fetch(`https://api.api-ninjas.com/v1/recipes?region=${region}`);
+			const response = await fetch(`${URL}/recipes?region=${region}`);
 			const data = await response.json();
 			setRecipes(data);  // Save the recipe in the state 'recipes'
 		} catch (error) {
