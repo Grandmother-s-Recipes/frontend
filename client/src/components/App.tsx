@@ -110,7 +110,7 @@ export default function App() {
 			return (<RegionCard activeRegion = { activeRegion } recipes= {recipes}/>);
 		}
 		if (view === "favorites") {
-			return (<Favorites/>)
+			return (<Favorites />)
 		}
 		if (view === "loginForm") {
 			return (<LoginForm handleLoggedInState = { handleLoggedInState }/>)
