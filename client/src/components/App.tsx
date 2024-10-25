@@ -16,14 +16,6 @@ export default function App() {
 		pathFetcher();
 	});
 
-	useEffect(() => {
-		const authToken = localStorage.getItem('authToken');
-		if (authToken) {
-			setIsLoggedIn(true);
-			setView("map");
-		}
-	}, []); // [] makes sure this only runs once.
-
 	// Sets the state for logging in and sets the view to map on logging in and logging out.
 	function handleLoggedInState(loggedIn: boolean) {
 		setIsLoggedIn(loggedIn);

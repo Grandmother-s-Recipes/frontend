@@ -24,9 +24,6 @@ const Header: React.FC<headerProps> = ({ isLoggedIn, loginButtonFunction, handle
                 console.error("There was an error logging out on the server side");
             }
 
-            // reset the token
-            console.log(localStorage.getItem('authToken'));
-            localStorage.removeItem('authToken');
             handleLoggedInState(false);
 
         } catch (error) {
