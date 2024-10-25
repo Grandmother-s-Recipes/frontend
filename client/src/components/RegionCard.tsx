@@ -17,6 +17,24 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes }) => {
     /*const formatIngredients = (ingredients: string) => {
         return ingredients.split('|').map((ingredient, index) => <li key={index}>{ingredient}</li>);
     };*/
+
+    const API_URL: string = import.meta.env.VITE_API_URL;
+
+    async function saveFavorite (recipe: Recipe) {
+        await fetch(`${API_URL}/favorites`, {
+                method: "POST",
+                body: JSON.stringify({
+                    user_id: sessionStorage.user_id,
+                    recipe_id: recipe.title,
+                    region: activeRegion,
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+        }
+
+
     return (
         <>
             <h2 className="title">{activeRegion}</h2>
@@ -37,6 +55,7 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes }) => {
                             <div className="recipeText">
                                 <strong>Instructions:</strong> {recipe.instructions}
                             </div>
+                            <button onClick = {() => saveFavorite(recipe)}>Save Favorite</button>
                         </div>
                     ))
                 ) : (

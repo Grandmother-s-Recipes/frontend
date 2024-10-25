@@ -4,40 +4,43 @@ interface Favorite {
     title: string;
     ingredients: string;
     servings: number;
-    instructions: string
+    instructions: string;
+    recipe_id: string;
+    id: string;
 }
 
 const Favorites: React.FC = () => {
 
-    const [hasError, setHasError] = useState<boolean>(false);
+    // const [hasError, setHasError] = useState<boolean>(false);
     const [favorites, setFavorites] = useState<Favorite[]>([]);
 
     useEffect(() => {
         handleFetchFavorites();
-    }, []);
+    },[favorites]);
 
-    const handleFetchFavorites = async(): Promise<void> => {
-        try {
-            const response = await fetch('/favorites', {
-                method: "GET",
-                credentials: 'include'
-            });
-            if (!response.ok) {
-                throw new Error('Could get the favorites from the database');
-            }
-            const favs: Favorite[] = await response.json();
-            setFavorites(favs);
-        } catch (error) {
-            setHasError(true);
+    const URL: string = import.meta.env.VITE_API_URL;
+
+    const handleFetchFavorites = async () => {
+        const response = await fetch(`${URL}/favorites?user_id=${sessionStorage.user_id}`, {method: "GET",}).then((res) => res.json());
+        let apiRecipes = [];
+        for (let favorite of response) {
+            apiRecipes.push(
+                fetch(`${URL}/recipes?region=${favorite.recipe_id}`)
+                .then((res) => res.json())
+                .then((res) => res[0])
+                .then((res) => Object.assign(res, {id: favorite.id}))
+            )
         }
-    }
+        Promise.all(apiRecipes)
+            .then((res) => setFavorites(res));
+	}
 
     const handleRemoveFromFavorites = async(recipe_id: string): Promise<void> => {
         try {
             // Remove from the database
-            const response = await fetch(`/favorites/${recipe_id}`, {
+            const response = await fetch(`${URL}/favorites/${recipe_id}`, {
                 method: "DELETE",
-                credentials: 'include',
+                //credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -60,11 +63,10 @@ const Favorites: React.FC = () => {
     return (
         <>
             <h2 className="title">Favorite recipes</h2>
-
             {
-                hasError ? (
+                !favorites ? (
                     <div>
-                        <p>There was an error finding your favorites.</p>
+                        <p>You have not saved any favorites. Go add some!</p>
                     </div>
                 ) : (
                     <div>
@@ -74,7 +76,7 @@ const Favorites: React.FC = () => {
                                 <p> Ingredients: {favorite.ingredients} </p>
                                 <span> Servings: {favorite.servings} </span>
                                 <p> Instructions: {favorite.instructions} </p>
-                                <button onClick = {() => handleRemoveFromFavorites(favorite.title)}>Remove</button>
+                                <button onClick = {() => handleRemoveFromFavorites(favorite.id)}>Remove</button>
                             </div>
                         ))}
                     </div>

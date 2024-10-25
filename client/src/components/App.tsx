@@ -14,20 +14,20 @@ export default function App() {
 
 	const [view, setView] = useState("map")
 	const [activeRegion, setActiveRegion] = useState<string | null>(null)
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 	const [recipes, setRecipes] = useState([]); //I added this state for memorizing the recipes called from the API
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		pathFetcher();
 	})
-      
-  // Sets the state for logging in and sets the view to map on logging in and logging out.
+
+  	// Sets the state for logging in and sets the view to map on logging in and logging out.
 	function handleLoggedInState(loggedIn: boolean) {
 		setIsLoggedIn(loggedIn);
 		setView("map");
 	}
-    
+
     //I added this useEffect and i also added activeRegion in line 24 
 	useEffect(() => {
 		if(activeRegion) {
@@ -45,7 +45,6 @@ export default function App() {
 			console.error(error);
 		}
 		setLoading(false);
-
 	}
 
 	//adds click events to each region on the map. Calls the below function viewRegion to change the view to the selected region

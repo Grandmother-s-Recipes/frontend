@@ -25,7 +25,8 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
             });
 
             if(response.ok) {
-                //const data = await response.json();
+                const data = await response.json();
+                sessionStorage.setItem('user_id', data);
                 handleLoggedInState(true);
             } else {
                 console.error('Login failed!');
