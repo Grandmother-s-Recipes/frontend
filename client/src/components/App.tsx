@@ -26,6 +26,7 @@ export default function App() {
 	function handleLoggedInState(loggedIn: boolean) {
 		setIsLoggedIn(loggedIn);
 		setView("map");
+	}
     
     //I added this useEffect and i also added activeRegion in line 24 
 	useEffect(() => {
