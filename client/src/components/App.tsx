@@ -11,10 +11,27 @@ export default function App() {
 	const [view, setView] = useState("map")
 	const [activeRegion, setActiveRegion] = useState<string | null>(null)
 	const [loggedIn, setLoggedIn] = useState("no");
+	const [recipes, setRecipes] = useState([]); //I added this state for memorizing the recipes called from the API
 
 	useEffect(() => {
 		pathFetcher();
 	})
+    //I added this useEffect and i also added activeRegion in line 24 
+	useEffect(() => {
+		if(activeRegion) {
+			fetchRecipesForRegion(activeRegion);
+		}
+	}, [activeRegion])  //the effect will active only when activeRegion change
+
+	const fetchRecipesForRegion = async (region: string) => {
+		try {
+			const response = await fetch(`https://api.api-ninjas.com/v1/recipes?region=${region}`);
+			const data = await response.json();
+			setRecipes(data);  // Save the recipe in the state 'recipes'
+		} catch (error) {
+			console.error(error);
+		}
+	}
 
 	//adds click events to each region on the map. Calls the below function viewRegion to change the view to the selected region
 	function pathFetcher () {
@@ -86,7 +103,7 @@ export default function App() {
 			)
 		}
 		if (view === "region") {
-			return (<RegionCard activeRegion = { activeRegion }/>)
+			return (<RegionCard activeRegion = { activeRegion } recipes= {recipes}/>);
 		}
 		if (view === "favorites") {
 			return (<Favorites/>)
