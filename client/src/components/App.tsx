@@ -130,7 +130,12 @@ export default function App() {
         <>
           <div>Select a region of Italy to get started!</div>
           <br />
-          <Map />
+		  <div className="container">
+			<div className="mapContainer">
+				<Map />
+			</div>
+		  </div>
+          
         </>
       );
     }
