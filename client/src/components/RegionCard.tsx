@@ -22,24 +22,6 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes, onRecipe
     };*/
 
 
-    const API_URL: string = import.meta.env.VITE_API_URL;
-
-    async function saveFavorite (recipe: Recipe) {
-        await fetch(`${API_URL}/favorites`, {
-                method: "POST",
-                body: JSON.stringify({
-                    user_id: sessionStorage.user_id,
-                    recipe_id: recipe.title,
-                    region: activeRegion,
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-        }
-
-
-
     return (
         <>
             <h2 className="title">{activeRegion}</h2>
@@ -54,10 +36,6 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes, onRecipe
                             <div className="viewDetails">
                                 <button className="viewDetailsButton" onClick={() => onRecipeClick(recipe)}><strong>Grandmama says</strong></button>
                             </div>
-                            <br />
-
-                            <button onClick = {() => saveFavorite(recipe)}>Save Favorite</button>
-
                         </div>
                     ))
                 ) : (
