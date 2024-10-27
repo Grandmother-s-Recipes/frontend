@@ -64,7 +64,7 @@ const Favorites: React.FC = () => {
         <>
             <h2 className="title">Favorite recipes</h2>
             {
-                !favorites ? (
+                !favorites[0] ? (
                     <div>
                         <p>You have not saved any favorites. Go add some!</p>
                     </div>
@@ -76,7 +76,7 @@ const Favorites: React.FC = () => {
                                 <p> Ingredients: {favorite.ingredients} </p>
                                 <span> Servings: {favorite.servings} </span>
                                 <p> Instructions: {favorite.instructions} </p>
-                                <button onClick = {() => handleRemoveFromFavorites(favorite.id)}>Remove</button>
+                                <button onClick = {() => handleRemoveFromFavorites(favorite.id)}>Remove from Favorites</button>
                             </div>
                         ))}
                     </div>

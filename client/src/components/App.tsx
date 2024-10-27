@@ -18,16 +18,6 @@ interface Recipe {
 export default function App() {
   const URL = import.meta.env.VITE_API_URL;
 
-
-
-
-
-
-
-
-
-
-
   const [view, setView] = useState<string>("map");
   const [activeRegion, setActiveRegion] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -44,7 +34,6 @@ export default function App() {
 
 	if(response.ok) {
 		setIsLoggedIn(true);
-
 	}
   }
 
@@ -127,9 +116,23 @@ export default function App() {
     setView("favorites");
   }
 
-  function addToFavorite() {
-
-  }
+  async function addToFavorite (recipe: Recipe) {
+	if (selectedRecipe === null) {
+		return;
+	}
+	await fetch(`${URL}/favorites`, {
+			method: "POST",
+			body: JSON.stringify({
+				user_id: sessionStorage.user_id,
+				recipe_id: recipe.title,
+				region: activeRegion,
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+		});
+	return alert(`${recipe.title} saved to favorites!`)
+	}
 
   //this function is called in the return of App.tsx. The result of this function determines what components are rendered
   function determineView() {

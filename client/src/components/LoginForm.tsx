@@ -9,14 +9,14 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
 
     const [loginError, setLoginError] = useState<boolean>(false);
     const [loginFailed, setLoginFailed] = useState<boolean>(false);
-    const API_URL: string = import.meta.env.VITE_API_URL;
+    const URL: string = import.meta.env.VITE_API_URL;
 
     async function loginFunction() {
         const username = (document.getElementById("usernameEntry") as HTMLInputElement).value;
         const password = (document.getElementById("passwordEntry") as HTMLInputElement).value;
 
         try {
-            const response = await fetch(`${API_URL}/login`, {
+            const response = await fetch(`${URL}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
 
             if(response.ok) {
                 const data = await response.json();
-                sessionStorage.setItem('user_id', data);
+                sessionStorage.setItem('user_id', data.user_id);
                 handleLoggedInState(true);
             } else {
                 console.error('Login failed!');
@@ -43,7 +43,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
         const password = (document.getElementById("passwordEntry") as HTMLInputElement).value;
         
         try {
-            const response = await fetch(`${API_URL}/register`, {
+            const response = await fetch(`${URL}/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -53,7 +53,8 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
             });
 
             if (response.ok) {
-                //const data = await response.json();
+                const data = await response.json();
+                sessionStorage.setItem('user_id', data.user_id);
                 handleLoggedInState(true);
             } else {
                 setLoginFailed(true);

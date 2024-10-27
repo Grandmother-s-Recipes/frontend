@@ -28,8 +28,8 @@ const RecipeModal: React.FC<RecipeModalProps> = ({ selectedRecipe, closeModal, a
                 <div className="ingredientsSection">
                     <p><strong>Ingredients:</strong></p>
                     {
-                        selectedRecipe.ingredients.split('|').map((ingredient:string) => (
-                            <p>{ingredient}</p>
+                        selectedRecipe.ingredients.split('|').map((ingredient:string, index) => (
+                            <p key={index}>{ingredient}</p>
                         ))
                     }
                 </div>
@@ -37,15 +37,15 @@ const RecipeModal: React.FC<RecipeModalProps> = ({ selectedRecipe, closeModal, a
                 <div className="instructionsSection">
                     <p><strong>Instructions:</strong></p> 
                     {
-                        selectedRecipe.instructions.split(". ").map((step:string) => (
-                            <p>{step}.</p>
+                        selectedRecipe.instructions.split(". ").map((step:string, index) => (
+                            <p key={index}>{step}.</p>
                         ))
                     }
                 </div>
             </div>
             <div className="buttonSection">
-                <button className="modalButton" onClick={addToFavorite}>Add to Favorites</button>
-                <button className="modalButton" onClick={closeModal}>Close</button>
+                <button className="modalButton" onClick={() => addToFavorite(selectedRecipe)}>Add to Favorites</button>
+                <button className="modalButton" onClick={() => closeModal()}>Close</button>
             </div>  
         </div>
     );
