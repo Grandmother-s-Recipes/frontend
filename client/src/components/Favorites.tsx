@@ -1,18 +1,25 @@
 import React, {useState, useEffect } from 'react';
+import "../styles/recipes.css";
+import grandmaImage from '../assets/grandma.jpg';
+import noRecipeGrandma from '../assets/grandma2.jpg';
 
-interface Favorite {
+interface Recipe {
     title: string;
     ingredients: string;
-    servings: number;
+    servings: string;
     instructions: string;
-    recipe_id: string;
-    id: string;
+    recipe_id: string | null;
+    id: string | null;
 }
 
-const Favorites: React.FC = () => {
+type FavoritesProps = {
+    onRecipeClick: (recipe: Recipe) => void;
+  };
+
+const Favorites: React.FC<FavoritesProps> = ({ onRecipeClick }) => {
 
     // const [hasError, setHasError] = useState<boolean>(false);
-    const [favorites, setFavorites] = useState<Favorite[]>([]);
+    const [favorites, setFavorites] = useState<Recipe[]>([]);
 
     useEffect(() => {
         handleFetchFavorites();
@@ -63,7 +70,29 @@ const Favorites: React.FC = () => {
     return (
         <>
             <h2 className="title">Favorite recipes</h2>
-            {
+            <div className="recipeContainer">
+                {favorites.length > 0 ? (
+                    favorites.map((favorite, index) => (
+                        <div className="recipeCard" key={index}>
+                            <div className="recipePicture">
+                                <img src={grandmaImage} alt="Your grandma."/>
+                            </div>
+                            <div className="recipeTitle">{favorite.title}</div>
+                            <div className="viewDetails">
+                                <button className="viewDetailsButton" onClick={() => onRecipeClick(favorite)}><strong>Grandmama says</strong></button>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div className="recipeCard">
+                        <div className="recipePictureNoRecipe">
+                            <img className="noRecipe" src={noRecipeGrandma} alt="Your grandma says no recipes here yet."/>
+                        </div>
+                        <div className="recipeTitle">No recipes found for this region. Or maybe there is no grandmother here.</div>
+                    </div>
+                )}
+            </div>
+            {/* {
                 !favorites[0] ? (
                     <div>
                         <p>You have not saved any favorites. Go add some!</p>
@@ -81,7 +110,7 @@ const Favorites: React.FC = () => {
                         ))}
                     </div>
                 )
-            }
+            } */}
 
         </>
     );

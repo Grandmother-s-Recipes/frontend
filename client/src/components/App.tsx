@@ -13,6 +13,8 @@ interface Recipe {
   ingredients: string;
   servings: string;
   instructions: string;
+  recipe_id: string | null;
+  id: string | null;
 }
 
 export default function App() {
@@ -191,7 +193,7 @@ export default function App() {
       );
     }
     if (view === "favorites") {
-      return <Favorites />;
+      return <Favorites onRecipeClick={handleRecipeClick}/>;
     }
     if (view === "loginForm") {
       return <LoginForm handleLoggedInState={handleLoggedInState} />;

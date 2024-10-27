@@ -7,6 +7,8 @@ interface Recipe {
   ingredients: string;
   servings: string;
   instructions: string;
+  recipe_id: string | null;
+  id: string | null;
 }
 
 type RegionCardProps = {
