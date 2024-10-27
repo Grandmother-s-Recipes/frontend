@@ -27,13 +27,17 @@ export default function App() {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const checkLoggedIn = async() => {
-	const response = await fetch('/', {
+	const response = await fetch(`${URL}/session`, {
 		method: 'GET',
 		credentials: 'include'
 	});
 
-	if(response.ok) {
+	const { userId } = await response.json();
+
+	if (userId) {
 		setIsLoggedIn(true);
+	} else {
+		setIsLoggedIn(false);
 	}
   }
 
