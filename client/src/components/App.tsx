@@ -143,7 +143,7 @@ export default function App() {
     if (view === "map") {
       return (
         <>
-          <div>Select a region of Italy to get started!</div>
+          <div className="instruction">Select a region of Italy to get started!</div>
           <br />
 		  <div className="container">
 			<div className="mapContainer">
