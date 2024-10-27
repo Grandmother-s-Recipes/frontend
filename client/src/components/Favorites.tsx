@@ -16,7 +16,7 @@ const Favorites: React.FC = () => {
 
     useEffect(() => {
         handleFetchFavorites();
-    },[favorites]);
+    },[]);
 
     const URL: string = import.meta.env.VITE_API_URL;
 
@@ -49,11 +49,11 @@ const Favorites: React.FC = () => {
             if(!response.ok) {
                 throw new Error("Error removing this item from the favorites");
             }
-
+            handleFetchFavorites();
             // Updates the view to remove the item
-            setFavorites((prevFavorites: Favorite[]) => 
-                prevFavorites.filter(favorite => favorite.title !== recipe_id)
-            );
+            // setFavorites((prevFavorites: Favorite[]) => 
+            //     prevFavorites.filter(favorite => favorite.title !== recipe_id)
+            // );
 
         } catch (error) {
             console.error("Error removing this item from the favorites: ", error);
