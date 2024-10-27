@@ -1,5 +1,6 @@
 import "../styles/recipes.css";
 import grandmaImage from '../assets/grandma.jpg';
+import noRecipeGrandma from '../assets/grandma2.jpg';
 
 interface Recipe {
   title: string;
@@ -39,7 +40,12 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes, onRecipe
                         </div>
                     ))
                 ) : (
-                    <p>No recipes found for this region. Or maybe there is no grandmother here</p>
+                    <div className="recipeCard">
+                        <div className="recipePictureNoRecipe">
+                            <img className="noRecipe" src={noRecipeGrandma} alt="Your grandma says no recipes here yet."/>
+                        </div>
+                        <div className="recipeTitle">No recipes found for this region. Or maybe there is no grandmother here.</div>
+                    </div>
                 )}
             </div>
        </>

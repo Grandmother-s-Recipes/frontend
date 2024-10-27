@@ -60,3 +60,13 @@
     background-color: #3E5C73;
     color: #FFD966;
 }
+
+.recipePictureNoRecipe {
+    height: 500px;
+}
+
+img.noRecipe {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
