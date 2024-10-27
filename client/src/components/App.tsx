@@ -117,6 +117,9 @@ export default function App() {
   }
 
   async function addToFavorite (recipe: Recipe) {
+	if (!isLoggedIn) {
+		return alert("You must be logged in to save a favorite recipe.");
+	}
 	if (selectedRecipe === null) {
 		return;
 	}
