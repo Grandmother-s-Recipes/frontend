@@ -1,0 +1,60 @@
+.titleSection {
+    margin: 20px;
+}
+
+.titleSection > h2 {
+    font-size: 4rem;
+}
+
+.servingsSection {
+    margin: 20px;
+}
+
+.recipeSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: left;
+}
+
+.ingredientsSection {
+    flex: 1 1 10%;
+    margin: 20px;
+}
+
+.ingredientsSection > p {
+    text-align:left;
+    font-size: 1.4rem;
+    margin: 10px;
+}
+
+.instructionsSection {
+    flex: 1 1 50%;
+    margin: 20px;
+}
+
+.instructionsSection > p {
+    text-align: left;
+    font-size: 1.2rem;
+    margin: 5px;
+}
+
+.buttonSection {
+    margin: 20px;
+}
+
+.modalButton {
+    margin: 5px;
+    height: 70px;
+    font-size: 1.5rem;
+    border-style: none;
+    border-radius: 5px;
+    background-color: #FF6347;
+    color: white;
+    width: 300px;
+}
+
+.modalButton:hover {
+    background-color: goldenrod;
+    color: #3E5C73
+}

@@ -21,7 +21,8 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ username, password }),
+                credentials: 'include'
             });
 
             if(response.ok) {
@@ -47,7 +48,8 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ username, password }),
+                credentials: 'include'
             });
 
             if (response.ok) {
@@ -78,15 +80,17 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
                         <button onClick={returnToLogin}>Return to Login</button>
                     </>
                 ) : (
-                    <>
-                        <input id="usernameEntry" placeholder="Username"></input>
+                    <div className="loginForm">
+                        <input id="usernameEntry" placeholder="Username" type="text"></input>
                         <br/>
-                        <input id="passwordEntry" placeholder="Password"></input>
+                        <input id="passwordEntry" placeholder="Password" type="password"></input>
                         <br/>
-                        <button onClick={loginFunction}>Login</button>
-                        <br/>
-                        <button onClick={registerFunction}>Register</button>
-                    </>
+                        <div className="buttonGroup">
+                            <button onClick={loginFunction}>Login</button>
+                            <br/>
+                            <button onClick={registerFunction}>Register</button>
+                        </div>
+                    </div>
                 )
             }
 

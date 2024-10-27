@@ -1,3 +1,47 @@
 button {
     cursor: pointer;
 }
+
+.loginForm > input {
+    height: 50px;
+    margin: 10px;
+    width: 300px;
+    border-style: none;
+    background-color: goldenrod;
+    font-size: 20px;
+    color: black;
+    box-shadow: inset black 0px 0px 5px;
+}
+
+.loginForm > input::placeholder {
+    color: white;
+    font-size: 20px;
+    opacity: 1;
+}
+
+.loginForm > input:focus {
+    font-size: 20px;
+    background-color: white;
+}
+
+.buttonGroup {
+    display: flex;
+    flex-direction: horizontal;
+    justify-content: center;
+}
+
+.buttonGroup > button {
+    width: 300px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 15px;
+    border-style: none;
+    background-color: #FF6347;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.buttonGroup > button:hover {
+    background-color: goldenrod;
+    color: #3E5C73;
+}
