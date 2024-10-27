@@ -27,6 +27,21 @@ export default function App() {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
 
+  const checkLoggedIn = async() => {
+	const response = await fetch('/', {
+		method: 'GET',
+		credentials: 'include'
+	});
+
+	if(response.ok) {
+		setIsLoggedIn(true);
+	}
+  }
+
+  useEffect(() => {
+	checkLoggedIn();
+  }, []);
+
   useEffect(() => {
     pathFetcher();
   });
@@ -130,7 +145,12 @@ export default function App() {
         <>
           <div>Select a region of Italy to get started!</div>
           <br />
-          <Map />
+		  <div className="container">
+			<div className="mapContainer">
+				<Map />
+			</div>
+		  </div>
+          
         </>
       );
     }
