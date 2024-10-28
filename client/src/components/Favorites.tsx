@@ -69,14 +69,14 @@ const Favorites: React.FC = () => {
                         <p>You have not saved any favorites. Go add some!</p>
                     </div>
                 ) : (
-                    <div>
+                    <div className="favorite-list">
                         {favorites.map((favorite, index) => (
-                            <div key={index}>
-                                <h3 key={index}> {favorite.title} </h3>
+                            <div className="favorite-card" key={index}>
+                                <h3 className="favorite-title" key={index}> {favorite.title} </h3>
                                 <p> Ingredients: {favorite.ingredients} </p>
                                 <span> Servings: {favorite.servings} </span>
                                 <p> Instructions: {favorite.instructions} </p>
-                                <button onClick = {() => handleRemoveFromFavorites(favorite.id)}>Remove from Favorites</button>
+                                <button className="remove-favorite" onClick = {() => handleRemoveFromFavorites(favorite.id)}>Remove from Favorites</button>
                             </div>
                         ))}
                     </div>
