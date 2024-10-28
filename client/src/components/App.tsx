@@ -88,7 +88,7 @@ export default function App() {
   function pathFetcher() {
     const paths = document.querySelectorAll('path');
     for (let i = 0; i < paths.length; i++) {
-      let region = paths[i].getAttribute('region-name');
+      const region = paths[i].getAttribute('region-name');
       paths[i].addEventListener('click', () => {
         viewRegion(region);
       });

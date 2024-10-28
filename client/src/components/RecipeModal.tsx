@@ -10,8 +10,8 @@ interface Recipe {
 
 type RecipeModalProps = {
     selectedRecipe: Recipe,
-    closeModal: Function,
-    addToFavorite: Function,
+    closeModal: () => void,
+    addToFavorite: (recipe: Recipe) => void,
 }
 
 const RecipeModal: React.FC<RecipeModalProps> = ({ selectedRecipe, closeModal, addToFavorite }) => {
