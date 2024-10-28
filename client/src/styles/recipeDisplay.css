@@ -63,6 +63,10 @@ h2.title {
     margin-bottom: 8px;
 }
 
+h3.favorite-title {
+    font-size: 2rem;
+}
+
 div.favorite-list {
     display: flex;
     flex-direction: column;

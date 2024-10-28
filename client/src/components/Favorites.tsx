@@ -72,7 +72,7 @@ const Favorites: React.FC = () => {
                     <div className="favorite-list">
                         {favorites.map((favorite, index) => (
                             <div className="favorite-card" key={index}>
-                                <h3 key={index}> {favorite.title} </h3>
+                                <h3 className="favorite-title" key={index}> {favorite.title} </h3>
                                 <p> Ingredients: {favorite.ingredients} </p>
                                 <span> Servings: {favorite.servings} </span>
                                 <p> Instructions: {favorite.instructions} </p>
