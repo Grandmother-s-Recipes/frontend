@@ -2,6 +2,7 @@ import "../styles/recipes.css";
 import grandmaImage from '../assets/grandma.jpg';
 import noRecipeGrandma from '../assets/grandma2.jpg';
 import { useState } from 'react';
+import { PacmanLoader } from 'react-spinners';
 
 interface Recipe {
   title: string;
@@ -24,6 +25,7 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes, onRecipe
 
     const [grandmaMode, setGrandmaMode] = useState(false);
     const [grandmaAns, setGrandmaAns] = useState('');
+    const [loadingAnswer, setLoadingAnswer] = useState(true);
 
     const URL = import.meta.env.VITE_API_URL;
 
@@ -31,6 +33,7 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes, onRecipe
         const response = await fetch(`${URL}/askgrandma/?region=${region}`);
         const answer = await response.json();
         setGrandmaAns(answer.response);
+        setLoadingAnswer(false);
     }
 
     return (
@@ -55,12 +58,24 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes, onRecipe
                             <img className="noRecipe" src={noRecipeGrandma} alt="Your grandma says no recipes here yet."/>
                         </div>
                         <div className="recipeTitle">No recipes found for this region.
-                            <button className="viewDetailsButton" onClick={ () => {
+                            <button className="askGrandmaButton viewDetailsButton" onClick={ () => {
                                     setGrandmaMode(true);
                                     handleAskGrandma(activeRegion);
                                 }
                             }><strong>Ask grandma?</strong></button></div>
                     </div>
+                ) : loadingAnswer ? 
+                (
+                    <PacmanLoader
+                    color="#3e5c7e"
+                    cssOverride={{
+                      marginLeft: 'auto',
+                      marginRight: 'auto'
+                    }}
+                    margin={2}
+                    size={25}
+                    speedMultiplier={1}
+                  />
                 ) :
                 <div className="grandma-answer">
                     <p>{grandmaAns}</p>
