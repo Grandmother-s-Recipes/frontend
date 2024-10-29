@@ -1,4 +1,5 @@
 import React, {useState, useEffect } from 'react';
+import { PacmanLoader } from 'react-spinners';
 
 interface Favorite {
     title: string;
@@ -10,10 +11,9 @@ interface Favorite {
 }
 
 const Favorites: React.FC = () => {
-
-    // const [hasError, setHasError] = useState<boolean>(false);
     const [favorites, setFavorites] = useState<Favorite[]>([]);
     const [selectedFavorite, setSelectedFavorite] = useState<Favorite | null>(null);
+    const [loadingFavorites, setLoadingFavorites] = useState<boolean>(true);
 
     useEffect(() => {
         handleFetchFavorites();
@@ -33,7 +33,8 @@ const Favorites: React.FC = () => {
             )
         }
         Promise.all(apiRecipes)
-            .then((res) => setFavorites(res));
+            .then((res) => setFavorites(res))
+            .then(() => setLoadingFavorites(false));
 	}
 
     const handleRemoveFromFavorites = async(recipe_id: string): Promise<void> => {
@@ -51,10 +52,6 @@ const Favorites: React.FC = () => {
                 throw new Error("Error removing this item from the favorites");
             }
             handleFetchFavorites();
-            // Updates the view to remove the item
-            // setFavorites((prevFavorites: Favorite[]) => 
-            //     prevFavorites.filter(favorite => favorite.title !== recipe_id)
-            // );
 
         } catch (error) {
             console.error("Error removing this item from the favorites: ", error);
@@ -65,10 +62,20 @@ const Favorites: React.FC = () => {
         <>
             <h2 className="title">Favorite recipes</h2>
             {
-                !favorites[0] ? (
-                    <div>
-                        <p>You have not saved any favorites. Go add some!</p>
-                    </div>
+                favorites.length === 0 ? 
+                    (loadingFavorites ? (
+                        <PacmanLoader
+                        color="#3e5c7e"
+                        cssOverride={{
+                          marginLeft: 'auto',
+                          marginRight: 'auto'
+                        }}
+                        margin={2}
+                        size={25}
+                        speedMultiplier={1}
+                      />
+                    ) 
+                    : (<p>You have not saved any favorites. Go add some!</p>)
                 ) : (
                     <>
                         <div className="favorite-list">
