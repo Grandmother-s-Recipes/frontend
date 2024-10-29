@@ -13,6 +13,7 @@ const Favorites: React.FC = () => {
 
     // const [hasError, setHasError] = useState<boolean>(false);
     const [favorites, setFavorites] = useState<Favorite[]>([]);
+    const [selectedFavorite, setSelectedFavorite] = useState<Favorite | null>(null);
 
     useEffect(() => {
         handleFetchFavorites();
@@ -69,17 +70,46 @@ const Favorites: React.FC = () => {
                         <p>You have not saved any favorites. Go add some!</p>
                     </div>
                 ) : (
-                    <div className="favorite-list">
-                        {favorites.map((favorite, index) => (
-                            <div className="favorite-card" key={index}>
-                                <h3 className="favorite-title" key={index}> {favorite.title} </h3>
-                                <p> Ingredients: {favorite.ingredients} </p>
-                                <span> Servings: {favorite.servings} </span>
-                                <p> Instructions: {favorite.instructions} </p>
-                                <button className="remove-favorite" onClick = {() => handleRemoveFromFavorites(favorite.id)}>Remove from Favorites</button>
-                            </div>
-                        ))}
-                    </div>
+                    <>
+                        <div className="favorite-list">
+                            {favorites.map((favorite, index) => (
+                                <div className="favorite-card" key={index} onClick={() => {setSelectedFavorite(favorite)}}>
+                                    <h3 className="favorite-title" key={index}> {favorite.title} </h3>
+                                    <p> <span className="bold">Ingredients:</span> {favorite.ingredients} </p>
+                                    <span> <span className="bold">Servings:</span> {favorite.servings} </span>
+                                    <p> <span className="bold">Instructions:</span> {favorite.instructions} </p>
+                                </div>
+                            ))}
+                        </div>
+                        {selectedFavorite && (
+                                <div className='favorite-modal'>
+                                    <div className='favorite-modal-title'>{selectedFavorite.title}</div>
+                                    <div className='favorite-modal-servings'><span className='bold'>Servings:</span> {selectedFavorite.servings}</div>
+                                    <div className="favorite-modal-main-body">
+                                        <div className="favorite-modal-ingredients">
+                                            <span className='bold'>Ingredients:</span>
+                                            {
+                                                selectedFavorite.ingredients.split('|').map((ingredient:string, index) => (
+                                                    <p key={index}>{ingredient}</p>
+                                                ))
+                                            }
+                                        </div>
+                                        <div className="favorite-modal-instructions">
+                                        <span className='bold'>Instructions:</span>
+                                            {
+                                                selectedFavorite.instructions.split(". ").map((step:string, index) => (
+                                                    <p key={index}>{step}.</p>
+                                                ))
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="buttons">
+                                        <button className="favorite-modal-remove-button" onClick = {() => {handleRemoveFromFavorites(selectedFavorite.id); setSelectedFavorite(null)}}>Remove from Favorites</button>
+                                        <button type="button" className="favorite-modal-close-button" onClick={(event) => {event.stopPropagation(); setSelectedFavorite(null)}}>Close</button>
+                                    </div>
+                                </div>
+                        )}
+                    </>
                 )
             }
 
