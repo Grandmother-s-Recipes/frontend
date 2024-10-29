@@ -75,9 +75,6 @@ const Favorites: React.FC = () => {
                             {favorites.map((favorite, index) => (
                                 <div className="favorite-card" key={index} onClick={() => {setSelectedFavorite(favorite)}}>
                                     <h3 className="favorite-title" key={index}> {favorite.title} </h3>
-                                    <p> <span className="bold">Ingredients:</span> {favorite.ingredients} </p>
-                                    <span> <span className="bold">Servings:</span> {favorite.servings} </span>
-                                    <p> <span className="bold">Instructions:</span> {favorite.instructions} </p>
                                 </div>
                             ))}
                         </div>
