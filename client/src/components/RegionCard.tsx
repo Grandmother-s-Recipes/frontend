@@ -1,7 +1,7 @@
 import "../styles/recipes.css";
 import grandmaImage from '../assets/grandma.jpg';
 import noRecipeGrandma from '../assets/grandma2.jpg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PacmanLoader } from 'react-spinners';
 
 interface Recipe {
@@ -26,14 +26,37 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes, onRecipe
     const [grandmaMode, setGrandmaMode] = useState(false);
     const [grandmaAns, setGrandmaAns] = useState('');
     const [loadingAnswer, setLoadingAnswer] = useState(true);
+    const [imagesUrl, setImagesUrl] = useState<string[]>([]);
 
     const URL = import.meta.env.VITE_API_URL;
+    const googleQuery = "https://customsearch.googleapis.com/customsearch/v1?key=" + import.meta.env.VITE_GOOGLE_CUSTOM_SEARCH_API + "&cx=" + import.meta.env.VITE_GOOGLE_SEARCH_ENGINE_ID + "&searchType=image&num=1&safe=active&searchType=image&imgSize=medium&imgType=photo&q=";
+
+    useEffect(() => {
+        if (recipes.length > 0) {
+            const imagesPromises = recipes.map(recipe => getImageUrl(recipe.title));
+            Promise.all(imagesPromises)
+                .then(data => {setImagesUrl(data)})
+        }
+    }, []);
 
     const handleAskGrandma = async (region : string | null) => {
         const response = await fetch(`${URL}/askgrandma/?region=${region}`);
         const answer = await response.json();
         setGrandmaAns(answer.response);
         setLoadingAnswer(false);
+    }
+
+    const getImageUrl = async (recipeTitle: string) => {
+        try {
+            const response = await fetch(googleQuery+recipeTitle);
+            const data = await response.json();
+            if (data.items && data.items.length > 0) {
+                return data.items[0].link;
+            } else return grandmaImage;
+        } catch (error) {
+            console.error("There is a problem fetching images: ", error);
+            return grandmaImage;
+        }
     }
 
     return (
@@ -44,7 +67,7 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes, onRecipe
                     recipes.map((recipe, index) => (
                         <div className="recipeCard" key={index}>
                             <div className="recipePicture">
-                                <img src={grandmaImage} alt="Your grandma."/>
+                                <img src={imagesUrl[index] || grandmaImage} alt="Your grandma."/>
                             </div>
                             <div className="recipeTitle">{recipe.title}</div>
                             <div className="viewDetails">
