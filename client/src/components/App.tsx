@@ -137,8 +137,15 @@ export default function App() {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-		});
-	return alert(`${recipe.title} saved to favorites!`)
+		}).then(response => {
+      if (response.status === 201) {
+        return alert(`${recipe.title} saved to favorites!`)
+      } else if (response.status === 400) {
+        return alert(`${recipe.title} is already in your favorites.`)
+      } else {
+        return alert('Error adding to favorites.');
+      }
+    })
 	}
 
   //this function is called in the return of App.tsx. The result of this function determines what components are rendered
