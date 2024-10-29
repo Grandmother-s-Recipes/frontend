@@ -141,3 +141,12 @@ div.buttons {
 span.bold {
     font-weight: bold;
 }
+
+.askGrandmaButton {
+    margin-left: 6px;
+    margin-top: 24px
+}
+
+.noRecipe {
+    padding-top: 12px;
+}
