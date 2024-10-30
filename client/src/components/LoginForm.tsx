@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import "../styles/loginForm.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type loginProps = {
     handleLoggedInState: (loggedIn: boolean) => void,
@@ -8,9 +10,21 @@ type loginProps = {
 const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
 
     const [loginError, setLoginError] = useState<boolean>(false);
-    const [loginFailed, setLoginFailed] = useState<boolean>(false);
     const [loginOrRegister, setLoginOrRegister] = useState<string>('login');
     const URL: string = import.meta.env.VITE_API_URL;
+
+    const warnToast = (a: string) => {
+        toast.warn(a, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
 
     async function loginFunction() {
         const username = (document.getElementById("usernameEntry") as HTMLInputElement).value;
@@ -32,7 +46,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
                 handleLoggedInState(true);
             } else {
                 console.error('Login failed!');
-                setLoginFailed(true);
+                warnToast("Login failed!");
             }
         } catch {
             setLoginError(true);
@@ -45,7 +59,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
         const confirmPassword = (document.getElementById("confirmPasswordRegister") as HTMLInputElement).value;
 
         if (password !== confirmPassword) {
-            alert("Passwords don't match!");
+            warnToast("Passwords don't match!");
             return;
         }
 
@@ -62,7 +76,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
             if (response.ok) {
                 setLoginOrRegister('login');
             } else {
-                setLoginFailed(true);
+                warnToast("Username already exists! Please choose another.");
                 console.error('Registration failed');
             }
         } catch {
@@ -72,11 +86,11 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
 
     function returnToLogin() {
         setLoginError(false);
-        setLoginFailed(false);
     }
 
     return (
         <>
+            <ToastContainer />
             {
                 loginError ? (
                     <>
@@ -112,20 +126,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
                         </div>
                     </div>
                 )
-            }
-
-            {
-                loginFailed ? (
-                    <>
-                        <h3>Login / Registration could not be completed</h3>
-                        <p>Sorry about that. Please try again</p>
-                    </>
-                ) : (
-                    <>
-                    </>
-                )
-            }
-            
+            }            
         </>
     )
 

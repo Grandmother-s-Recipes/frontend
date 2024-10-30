@@ -7,6 +7,8 @@ import LoginForm from './LoginForm.tsx';
 import RecipeModal from './RecipeModal.tsx';
 import "../styles/app.css";
 import { PacmanLoader } from 'react-spinners';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Recipe {
   title: string;
@@ -120,14 +122,27 @@ export default function App() {
     setView("favorites");
   }
 
+  const warnToast = (a: string) => {
+    toast.warn(a, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  }
+
   async function addToFavorite (recipe: Recipe) {
 	if (!isLoggedIn) {
-		return alert("You must be logged in to save a favorite recipe.");
+    return warnToast('You must be logged in to save a favorite recipe.');
 	}
 	if (selectedRecipe === null) {
 		return;
 	}
-	await fetch(`${URL}/favorites`, {
+	const response = await fetch(`${URL}/favorites`, {
 			method: "POST",
 			body: JSON.stringify({
 				user_id: sessionStorage.user_id,
@@ -137,15 +152,23 @@ export default function App() {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-		}).then(response => {
+		})  
       if (response.status === 201) {
-        return alert(`${recipe.title} saved to favorites!`)
+        warnToast(`${recipe.title} saved to favorites!`);
       } else if (response.status === 400) {
-        return alert(`${recipe.title} is already in your favorites.`)
+        warnToast(`${recipe.title} is already in your favorites.`);
       } else {
-        return alert('Error adding to favorites.');
+        toast.error(`Error adding to favorites.`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
-    })
 	}
 
   //this function is called in the return of App.tsx. The result of this function determines what components are rendered
@@ -184,6 +207,7 @@ export default function App() {
     if (view === "region") {
       return (
         <>
+          <ToastContainer />
           <RegionCard
             activeRegion={activeRegion}
             recipes={recipes}
@@ -207,6 +231,7 @@ export default function App() {
 
   return (
     <>
+      <ToastContainer />
       <Header
         isLoggedIn={isLoggedIn}
         loginButtonFunction={loginButtonFunction}
