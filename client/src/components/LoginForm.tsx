@@ -13,6 +13,19 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
     const [loginOrRegister, setLoginOrRegister] = useState<string>('login');
     const URL: string = import.meta.env.VITE_API_URL;
 
+    const warnToast = (a: string) => {
+        return toast.warn(a, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
     async function loginFunction() {
         const username = (document.getElementById("usernameEntry") as HTMLInputElement).value;
         const password = (document.getElementById("passwordEntry") as HTMLInputElement).value;
@@ -33,16 +46,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
                 handleLoggedInState(true);
             } else {
                 console.error('Login failed!');
-                toast.warn("Login failed!", {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+                warnToast("Login failed!");
             }
         } catch {
             setLoginError(true);
@@ -55,16 +59,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
         const confirmPassword = (document.getElementById("confirmPasswordRegister") as HTMLInputElement).value;
 
         if (password !== confirmPassword) {
-            toast.warn("Passwords don't match!", {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
+            warnToast("Passwords don't match!");
             return;
         }
 
@@ -81,16 +76,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
             if (response.ok) {
                 setLoginOrRegister('login');
             } else {
-                toast.warn("Username already exists! Please choose another.", {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+                warnToast("Username already exists! Please choose another.");
                 console.error('Registration failed');
             }
         } catch {

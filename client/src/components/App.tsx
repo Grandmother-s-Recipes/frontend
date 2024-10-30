@@ -156,7 +156,6 @@ export default function App() {
       if (response.status === 201) {
         warnToast(`${recipe.title} saved to favorites!`);
       } else if (response.status === 400) {
-        console.log(response);
         warnToast(`${recipe.title} is already in your favorites.`);
       } else {
         toast.error(`Error adding to favorites.`, {
