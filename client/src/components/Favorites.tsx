@@ -1,5 +1,6 @@
 import React, {useState, useEffect } from 'react';
 import { PacmanLoader } from 'react-spinners';
+import grandmaImage from '../assets/grandma2.jpg';
 
 interface Favorite {
     title: string;
@@ -80,8 +81,16 @@ const Favorites: React.FC = () => {
                     <>
                         <div className="favorite-list">
                             {favorites.map((favorite, index) => (
-                                <div className="favorite-card" key={index} onClick={() => {setSelectedFavorite(favorite)}}>
+                                <div className="favorite-card" key={index}>
+                                    <div className="recipePicture">
+                                        <img src={grandmaImage} alt="Your grandma."/>
+                                    </div>
                                     <h3 className="favorite-title" key={index}> {favorite.title} </h3>
+                                    <div className="viewDetails">
+                                    <button className="viewDetailsButton" onClick={() => {setSelectedFavorite(favorite)}}>
+                                        <strong>Grandmama says</strong>
+                                    </button>
+                            </div>
                                 </div>
                             ))}
                         </div>
