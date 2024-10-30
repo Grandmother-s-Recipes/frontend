@@ -14,7 +14,7 @@ const LoginForm: React.FC<loginProps> = ({ handleLoggedInState }) => {
     const URL: string = import.meta.env.VITE_API_URL;
 
     const warnToast = (a: string) => {
-        return toast.warn(a, {
+        toast.warn(a, {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
