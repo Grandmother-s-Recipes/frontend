@@ -106,6 +106,7 @@ div.favorite-modal {
     gap: 24px;
     padding: 0 18px;
     border-radius: 12px;
+    overflow-y: auto;
 }
 
 div.favorite-modal-title {
