@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from 'react';
 import { PacmanLoader } from 'react-spinners';
-import grandmaImage from '../assets/grandma2.jpg';
+import noRecipeGrandma from '../assets/grandma2.jpg';
 
 interface Favorite {
     title: string;
@@ -83,7 +83,7 @@ const Favorites: React.FC = () => {
                             {favorites.map((favorite, index) => (
                                 <div className="favorite-card" key={index}>
                                     <div className="recipePicture">
-                                        <img src={grandmaImage} alt="Your grandma."/>
+                                        <img src={noRecipeGrandma} alt="Your grandma."/>
                                     </div>
                                     <h3 className="favorite-title" key={index}> {favorite.title} </h3>
                                     <div className="viewDetails">
