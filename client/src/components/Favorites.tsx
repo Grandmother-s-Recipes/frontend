@@ -1,5 +1,6 @@
 import React, {useState, useEffect } from 'react';
 import { PacmanLoader } from 'react-spinners';
+import grandmaImage from '../assets/grandma.jpg';
 import noRecipeGrandma from '../assets/grandma2.jpg';
 
 interface Favorite {
@@ -15,6 +16,7 @@ const Favorites: React.FC = () => {
     const [favorites, setFavorites] = useState<Favorite[]>([]);
     const [selectedFavorite, setSelectedFavorite] = useState<Favorite | null>(null);
     const [loadingFavorites, setLoadingFavorites] = useState<boolean>(true);
+    let grandmaCount = 1;
 
     useEffect(() => {
         handleFetchFavorites();
@@ -83,7 +85,7 @@ const Favorites: React.FC = () => {
                             {favorites.map((favorite, index) => (
                                 <div className="favorite-card" key={index}>
                                     <div className="recipePicture">
-                                        <img src={noRecipeGrandma} alt="Your grandma."/>
+                                        <img src={grandmaCount++ % 2 === 1 ? noRecipeGrandma : grandmaImage} alt="Your grandma."/>
                                     </div>
                                     <h3 className="favorite-title" key={index}> {favorite.title} </h3>
                                     <div className="viewDetails">
