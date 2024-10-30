@@ -27,17 +27,25 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes, onRecipe
     const [grandmaAns, setGrandmaAns] = useState('');
     const [loadingAnswer, setLoadingAnswer] = useState(true);
     const [imagesUrl, setImagesUrl] = useState<string[]>([]);
+    const [loadingImages, setLoadingImages] = useState(true);
 
     const URL = import.meta.env.VITE_API_URL;
     const googleQuery = "https://customsearch.googleapis.com/customsearch/v1?key=" + import.meta.env.VITE_GOOGLE_CUSTOM_SEARCH_API + "&cx=" + import.meta.env.VITE_GOOGLE_SEARCH_ENGINE_ID + "&searchType=image&num=1&safe=active&searchType=image&imgSize=medium&imgType=photo&q=";
 
     useEffect(() => {
         if (recipes.length > 0) {
-            const imagesPromises = recipes.map(recipe => getImageUrl(recipe.title));
-            Promise.all(imagesPromises)
-                .then(data => {setImagesUrl(data)})
+            setLoadingImages(true);
+            const fetchImages = async () => {
+                const imagesPromises = recipes.map(recipe => getImageUrl(recipe.title));
+                const data = await Promise.all(imagesPromises)
+                setImagesUrl(data);
+                setLoadingImages(false);
+            }
+            fetchImages();
+        } else {
+            setLoadingImages(false);
         }
-    }, []);
+    }, [recipes]);
 
     const handleAskGrandma = async (region : string | null) => {
         const response = await fetch(`${URL}/askgrandma/?region=${region}`);
