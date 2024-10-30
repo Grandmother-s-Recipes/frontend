@@ -95,7 +95,7 @@ const RegionCard: React.FC<RegionCardProps> = ({ activeRegion, recipes, onRecipe
                                 }
                             }><strong>Ask grandma?</strong></button></div>
                     </div>
-                ) : loadingAnswer ? 
+                ) : loadingAnswer || loadingImages ? 
                 (
                     <PacmanLoader
                     color="#3e5c7e"
